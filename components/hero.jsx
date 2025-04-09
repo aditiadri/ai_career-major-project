@@ -1,41 +1,38 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const rotatingFeatures = [
-  "resume builder",
-  "cover letter generator",
-  "interview preparation",
-  "AI mock interviews",
-  "career insights",
+  "ATS Resume Builder",
+  "Cover Letter Generator",
+  "Interview Preparation",
+  "AI Mock Interviews",
+  "Career Insights",
 ];
 
 const HeroSection = () => {
   const imageRef = useRef(null);
+  const [currentFeature, setCurrentFeature] = useState(rotatingFeatures[0]);
+  const [fade, setFade] = useState(true);
 
-  // ✅ Feature text animation
   useEffect(() => {
-    const featureText = document.getElementById("featureText");
-    let index = 0;
+    let index = 1;
 
     const interval = setInterval(() => {
-      if (featureText) {
-        featureText.style.opacity = "0";
+      setFade(false); 
 
-        setTimeout(() => {
-          featureText.textContent = rotatingFeatures[index];
-          featureText.style.opacity = "1";
-          index = (index + 1) % rotatingFeatures.length;
-        }, 300);
-      }
+      setTimeout(() => {
+        setCurrentFeature(rotatingFeatures[index]);
+        setFade(true);
+        index = (index + 1) % rotatingFeatures.length;
+      }, 300);
     }, 2500);
 
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ Scroll logic (your existing one)
   useEffect(() => {
     const imageElement = imageRef.current;
 
@@ -58,26 +55,30 @@ const HeroSection = () => {
 
   return (
     <section className="w-full pt-30 md:pt-40 pb-10 flex justify-center">
-      <div className="bg-transparent border border-gray-300 rounded-2xl shadow-md p-8 w-full max-w-3xl text-center space-y-6">
+      <div className="bgc border border-gray-400 rounded-2xl shadow-lg p-8 w-full max-w-4xl text-center space-y-6">
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold md:text-4xl lg:text-5xl xl:text-6xl">
-            Your AI Coach for
+          <h1 className="font-bold font-sans text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-300">
+            Your <span style={{ color: "#19e9c2" }} className="font-bold"> AI Coach </span>for
             <br />
             Professional Success
           </h1>
 
-          <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
-            Advance your career with AI-powered tools:&nbsp;
+          <p className="mx-auto text-muted-foreground md:text-xl whitespace-nowrap overflow-auto pt-5">
+            Advance your career with AI-powered tools like:&nbsp;
             <span
-              className="text-primary font-semibold transition-opacity duration-700"
+              className={`font-semibold transition-opacity duration-500`}
+              style={{
+                color: "#19e9c2",
+                opacity: fade ? 1 : 0,
+              }}
               id="featureText"
             >
-              resume builder
+              {currentFeature}
             </span>
           </p>
         </div>
 
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center space-x-4 pt-4">
           <Link href="/dashboard">
             <Button size="lg" className="px-8 animate-bounce">
               Get Started

@@ -25,14 +25,15 @@ export default async function Header() {
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="Sensai Logo"
-            width={200}
-            height={60}
-            className="h-12 py-1 w-auto object-contain"
-          />
+        <Link href="/3.jpeg">
+        <Image
+  src="/3.jpeg"
+  alt="Aipply Logo"
+  width={300}
+  height={80}
+  className="h-[71px] w-[270px] py-1 object-contain"
+/>
+
         </Link>
 
         {/* Action Buttons */}
